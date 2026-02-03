@@ -98,3 +98,57 @@ document.addEventListener('DOMContentLoaded', () => {
                     const currentSpeed = timeDiffMin > 0 ? (distance / timeDiffMin) : 0;
                     
                     currentSpeedEl.textContent = currentSpeed.toFixed(4);
+                    
+                    // Only track distance and update stats if moving above threshold
+                    if (currentSpeed > minSpeedThreshold) {
+                        totalDistance += distance;
+                        totalDistanceEl.textContent = totalDistance.toFixed(2);
+                        statusEl.textContent = 'Tracking... Moving!';
+                        updateStats(); // Update progress and avg speed only when moving
+                    } else {
+                        statusEl.textContent = 'Paused (no movement detected). Start walking/running!';
+                    }
+                }
+                lastPosition = currentPosition;
+            }, (error) => {
+                let msg = 'Unknown error.';
+                if (error.code === 1) msg = 'Location access denied. Enable permissions in browser settings.';
+                else if (error.code === 2) msg = 'Location unavailable. Check GPS and try outdoors.';
+                else if (error.code === 3) msg = 'Timeout. Try outdoors or wait longer for GPS lock.';
+                statusEl.textContent = `Error: ${msg}`;
+            }, { enableHighAccuracy: false, maximumAge: 1000, timeout: 10000 });
+            
+            intervalId = setInterval(updateStats, 1000); // Keep time updating
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+        } else {
+            statusEl.textContent = 'Geolocation not supported.';
+        }
+    }
+    
+    function stopTracking() {
+        tracking = false;
+        if (watchId) navigator.geolocation.clearWatch(watchId);
+        if (intervalId) clearInterval(intervalId);
+        
+        const now = new Date();
+        const runData = {
+            date: now.toLocaleDateString(),
+            distance: totalDistance.toFixed(2),
+            time: timeElapsedEl.textContent,
+            avgSpeed: averageSpeedEl.textContent
+        };
+        history.push(runData);
+        localStorage.setItem('history', JSON.stringify(history));
+        displayHistory();
+        
+        statusEl.textContent = 'Stopped. Run saved locally.';
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+    }
+    
+    startBtn.addEventListener('click', startTracking);
+    stopBtn.addEventListener('click', stopTracking);
+    
+    loadUserData(); // Load history on page load
+});
