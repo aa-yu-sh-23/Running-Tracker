@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let intervalId = null;
     let watchId = null;
     let history = JSON.parse(localStorage.getItem('history')) || [];
+    const minSpeedThreshold = 0.05; // km/min (about 3 km/h) - adjust if needed
     
     // Dark mode toggle
     darkModeToggle.addEventListener('click', () => {
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tracking = true;
             startTime = Date.now();
             totalDistance = 0;
-            statusEl.textContent = 'Tracking...';
+            statusEl.textContent = 'Tracking... Start walking/running!';
             
             watchId = navigator.geolocation.watchPosition((position) => {
                 const { latitude, longitude } = position.coords;
@@ -93,50 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (lastPosition) {
                     const distance = calculateDistance(lastPosition.lat, lastPosition.lng, currentPosition.lat, currentPosition.lng);
-                    totalDistance += distance;
-                    totalDistanceEl.textContent = totalDistance.toFixed(2);
-                    
                     const timeDiffMin = (Date.now() - startTime) / (1000 * 60);
-                    if (timeDiffMin > 0) {
-                        currentSpeedEl.textContent = (distance / timeDiffMin).toFixed(4);
-                    }
-                }
-                lastPosition = currentPosition;
-            }, (error) => {
-                statusEl.textContent = `Error: ${error.message}`;
-            }, { enableHighAccuracy: true, maximumAge: 1000, timeout: 5000 });
-            
-            intervalId = setInterval(updateStats, 1000);
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
-        } else {
-            statusEl.textContent = 'Geolocation not supported.';
-        }
-    }
-    
-    function stopTracking() {
-        tracking = false;
-        if (watchId) navigator.geolocation.clearWatch(watchId);
-        if (intervalId) clearInterval(intervalId);
-        
-        const now = new Date();
-        const runData = {
-            date: now.toLocaleDateString(),
-            distance: totalDistance.toFixed(2),
-            time: timeElapsedEl.textContent,
-            avgSpeed: averageSpeedEl.textContent
-        };
-        history.push(runData);
-        localStorage.setItem('history', JSON.stringify(history));
-        displayHistory();
-        
-        statusEl.textContent = 'Stopped. Run saved locally.';
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-    }
-    
-    startBtn.addEventListener('click', startTracking);
-    stopBtn.addEventListener('click', stopTracking);
-    
-    loadUserData(); // Load history on page load
-});
+                    const currentSpeed = timeDiffMin > 0 ? (distance / timeDiffMin) : 0;
+                    
+                    currentSpeedEl.textContent = currentSpeed.toFixed(4);
