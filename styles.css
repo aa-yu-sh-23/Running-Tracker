@@ -1,0 +1,236 @@
+:root {
+    --primary: #4CAF50;
+    --secondary: #FF5722;
+    --bg-light: #f4f4f4;
+    --bg-dark: #121212;
+    --text-light: #333;
+    --text-dark: #fff;
+    --card-bg: #fff;
+    --card-shadow: rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-light);
+    margin: 0;
+    padding: 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+    --bg-light: var(--bg-dark);
+    --text-light: var(--text-dark);
+    --card-bg: #1e1e1e;
+    --card-shadow: rgba(255,255,255,0.1);
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--card-shadow);
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    color: var(--primary);
+    margin: 0;
+    font-size: 1.5em;
+}
+
+#user-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#user-status {
+    font-size: 0.9em;
+    color: var(--secondary);
+}
+
+#dark-mode-toggle {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--card-shadow);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card i {
+    font-size: 2em;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+#status {
+    text-align: center;
+    color: var(--secondary);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.history {
+    text-align: left;
+}
+
+.history h2 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.history ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.history li {
+    background: var(--card-bg);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.history button {
+    background: var(--secondary);
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.history button:hover {
+    background: #e64a19;
+}
+
+.help-contact {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--card-shadow);
+    text-align: center;
+}
+
+.help-contact h2 {
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.help-contact p {
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+.help-contact a {
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+.help-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .stats {
+        grid-template-columns: 1fr;
+    }
+    .stat-card {
+        padding: 10px;
+    }
+    button {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    .history li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .help-contact {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+    .help-contact p {
+        font-size: 0.9em;
+    }
+}
