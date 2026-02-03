@@ -1,355 +1,142 @@
-:root {
-    --primary: linear-gradient(45deg, #4CAF50, #66BB6A);
-    --secondary: linear-gradient(45deg, #FF5722, #FF7043);
-    --bg-light: #f4f4f4;
-    --bg-dark: #121212;
-    --text-light: #333;
-    --text-dark: #fff;
-    --card-bg: #fff;
-    --card-shadow: rgba(0,0,0,0.1);
-    --glow: 0 0 20px rgba(76, 175, 80, 0.5);
-}
-
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background: var(--bg-light);
-    color: var(--text-light);
-    margin: 0;
-    padding: 10px;
-    transition: background 0.5s ease, color 0.5s ease;
-    overflow-x: hidden;
-}
-
-body.dark {
-    --bg-light: var(--bg-dark);
-    --text-light: var(--text-dark);
-    --card-bg: #1e1e1e;
-    --card-shadow: rgba(255,255,255,0.1);
-    --glow: 0 0 20px rgba(255, 87, 34, 0.5);
-}
-
-.background-particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(76,175,80,0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: particle-float 20s infinite linear;
-    z-index: -1;
-}
-
-@keyframes particle-float {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50px); }
-}
-
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px var(--card-shadow);
-    animation: container-appear 1s ease-out;
-    position: relative;
-}
-
-@keyframes container-appear {
-    0% { opacity: 0; transform: scale(0.9) rotate(-2deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0); }
-}
-
-.slide-in {
-    animation: slideIn 0.8s ease-out;
-}
-
-@keyframes slideIn {
-    0% { opacity: 0; transform: translateX(-50px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
-
-.flip-in {
-    animation: flipIn 1s ease-out;
-}
-
-@keyframes flipIn {
-    0% { opacity: 0; transform: rotateY(90deg); }
-    100% { opacity: 1; transform: rotateY(0); }
-}
-
-.fade-in {
-    animation: fadeIn 1.2s ease-out;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-.bounce {
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
-
-.spin {
-    animation: spin 3s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.pulse {
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-.glow {
-    box-shadow: var(--glow);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.glow:hover {
-    box-shadow: 0 0 30px rgba(76, 175, 80, 0.8);
-    transform: scale(1.05);
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    background: var(--primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0;
-    font-size: 1.5em;
-}
-
-#dark-mode-toggle {
-    background: none;
-    border: none;
-    color: var(--text-light);
-    font-size: 1.5em;
-    cursor: pointer;
-    padding: 5px;
-    transition: transform 0.3s ease;
-}
-
-#dark-mode-toggle:hover {
-    transform: rotate(180deg);
-}
-
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-button {
-    background: var(--primary);
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-button:hover {
-    background: var(--secondary);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.stat-card {
-    background: var(--card-bg);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px var(--card-shadow);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-10px) rotate(2deg);
-    box-shadow: 0 8px 25px var(--card-shadow);
-}
-
-.stat-card i {
-    font-size: 2em;
-    color: #4CAF50;
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
-}
-
-.stat-card:hover i {
-    color: #FF5722;
-}
-
-#status {
-    text-align: center;
-    color: #FF5722;
-    font-weight: bold;
-    margin-bottom: 20px;
-    transition: color 0.5s ease;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 10px;
-    background: #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-#progress-fill {
-    height: 100%;
-    background: var(--primary);
-    width: 0%;
-    transition: width 0.5s ease;
-}
-
-.history {
-    text-align: left;
-}
-
-.history h2 {
-    color: #4CAF50;
-    margin-bottom: 10px;
-}
-
-.history ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.history li {
-    background: var(--card-bg);
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px var(--card-shadow);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    transition: transform 0.3s ease;
-}
-
-.history li:hover {
-    transform: scale(1.02);
-}
-
-.history button {
-    background: var(--secondary);
-    padding: 5px 10px;
-    font-size: 0.8em;
-    transition: background 0.3s ease;
-}
-
-.history button:hover {
-    background: #e64a19;
-    transform: scale(1.1);
-}
-
-.help-contact {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid var(--card-shadow);
-    text-align: center;
-}
-
-.help-contact h2 {
-    color: #4CAF50;
-    margin-bottom: 15px;
-}
-
-.help-contact p {
-    margin: 10px 0;
-    font-size: 1em;
-    transition: transform 0.3s ease;
-}
-
-.help-contact p:hover {
-    transform: translateX(5px);
-}
-
-.help-contact a {
-    color: #FF5722;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.help-contact a:hover {
-    color: #4CAF50;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
+document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('start-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const timeElapsedEl = document.getElementById('time-elapsed');
+    const timeHoursEl = document.getElementById('time-hours');
+    const totalDistanceEl = document.getElementById('total-distance');
+    const currentSpeedEl = document.getElementById('current-speed');
+    const averageSpeedEl = document.getElementById('average-speed');
+    const statusEl = document.getElementById('status');
+    const historyList = document.getElementById('history-list');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const progressFill = document.getElementById('progress-fill');
+    
+    let tracking = false;
+    let startTime = null;
+    let lastPosition = null;
+    let totalDistance = 0;
+    let intervalId = null;
+    let watchId = null;
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    
+    // Dark mode toggle
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    });
+    if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+    
+    function loadUserData() {
+        history = JSON.parse(localStorage.getItem('history')) || [];
+        displayHistory();
     }
-    header {
-        flex-direction: column;
-        text-align: center;
+    
+    // Haversine formula
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLng = (lng2 - lng1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                  Math.sin(dLng/2) * Math.sin(dLng/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
     }
-    .stats {
-        grid-template-columns: 1fr;
+    
+    function updateStats() {
+        const now = Date.now();
+        const elapsedMs = now - startTime;
+        const elapsedMin = elapsedMs / (1000 * 60);
+        const hours = Math.floor(elapsedMin / 60);
+        const minutes = (elapsedMin % 60).toFixed(1);
+        
+        timeElapsedEl.textContent = elapsedMin.toFixed(1);
+        timeHoursEl.textContent = `${hours} hr ${minutes} min`;
+        
+        if (totalDistance > 0 && elapsedMin > 0) {
+            averageSpeedEl.textContent = (totalDistance / elapsedMin).toFixed(4);
+        }
+        
+        // Update progress bar (simulate based on time, e.g., 100% in 60 min)
+        const progress = Math.min((elapsedMin / 60) * 100, 100);
+        progressFill.style.width = `${progress}%`;
     }
-    .stat-card {
-        padding: 10px;
+    
+    function displayHistory() {
+        historyList.innerHTML = '';
+        history.forEach((run, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${run.date}: ${run.distance} km in ${run.time} min (Avg: ${run.avgSpeed} km/min)</span>
+                <button onclick="deleteHistory(${index})"><i class="fas fa-trash"></i></button>
+            `;
+            historyList.appendChild(li);
+        });
     }
-    button {
-        padding: 10px 15px;
-        font-size: 0.9em;
+    
+    window.deleteHistory = function(index) {
+        history.splice(index, 1);
+        localStorage.setItem('history', JSON.stringify(history));
+        displayHistory();
+    };
+    
+    function startTracking() {
+        if (navigator.geolocation) {
+            tracking = true;
+            startTime = Date.now();
+            totalDistance = 0;
+            statusEl.textContent = 'Tracking...';
+            
+            watchId = navigator.geolocation.watchPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                const currentPosition = { lat: latitude, lng: longitude };
+                
+                if (lastPosition) {
+                    const distance = calculateDistance(lastPosition.lat, lastPosition.lng, currentPosition.lat, currentPosition.lng);
+                    totalDistance += distance;
+                    totalDistanceEl.textContent = totalDistance.toFixed(2);
+                    
+                    const timeDiffMin = (Date.now() - startTime) / (1000 * 60);
+                    if (timeDiffMin > 0) {
+                        currentSpeedEl.textContent = (distance / timeDiffMin).toFixed(4);
+                    }
+                }
+                lastPosition = currentPosition;
+            }, (error) => {
+                statusEl.textContent = `Error: ${error.message}`;
+            }, { enableHighAccuracy: true, maximumAge: 1000, timeout: 5000 });
+            
+            intervalId = setInterval(updateStats, 1000);
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+        } else {
+            statusEl.textContent = 'Geolocation not supported.';
+        }
     }
-    .history li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+    
+    function stopTracking() {
+        tracking = false;
+        if (watchId) navigator.geolocation.clearWatch(watchId);
+        if (intervalId) clearInterval(intervalId);
+        
+        const now = new Date();
+        const runData = {
+            date: now.toLocaleDateString(),
+            distance: totalDistance.toFixed(2),
+            time: timeElapsedEl.textContent,
+            avgSpeed: averageSpeedEl.textContent
+        };
+        history.push(runData);
+        localStorage.setItem('history', JSON.stringify(history));
+        displayHistory();
+        
+        statusEl.textContent = 'Stopped. Run saved locally.';
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
     }
-    .help-contact {
-        margin-top: 20px;
-        padding-top: 15px;
-    }
-    .help-contact p {
-        font-size: 0.9em;
-    }
-}
+    
+    startBtn.addEventListener('click', startTracking);
+    stopBtn.addEventListener('click', stopTracking);
+    
+    loadUserData(); // Load history on page load
+});
