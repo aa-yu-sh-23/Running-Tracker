@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let intervalId = null;
     let watchId = null;
     let history = JSON.parse(localStorage.getItem('history')) || [];
-    const minSpeedThreshold = 0.05; // km/min (about 3 km/h) - adjust if needed
+    const minSpeedThreshold = 0.01; // Lower threshold for better detection (about 0.6 km/h)
     
     // Dark mode toggle
     darkModeToggle.addEventListener('click', () => {
@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const timeDiffMin = timeDiffMs / (1000 * 60);
                     const currentSpeed = timeDiffMin > 0 ? (distance / timeDiffMin) : 0;
                     
+                    console.log(`Distance: ${distance.toFixed(4)} km, Speed: ${currentSpeed.toFixed(4)} km/min`); // Debug log
+                    
                     currentSpeedEl.textContent = currentSpeed.toFixed(4);
                     
                     // Only track distance if moving above threshold
@@ -121,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (error.code === 2) msg = 'Location unavailable. Check GPS and try outdoors.';
                 else if (error.code === 3) msg = 'Timeout. Try outdoors or wait longer for GPS lock.';
                 statusEl.textContent = `Error: ${msg}`;
-            }, { enableHighAccuracy: false, maximumAge: 1000, timeout: 10000 });
+                console.error('Geolocation error:', error); // Debug log
+            }, { enableHighAccuracy: true, maximumAge: 1000, timeout: 10000 });
             
             intervalId = setInterval(updateStats, 1000); // Keep time updating
             startBtn.disabled = true;
