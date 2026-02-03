@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let tracking = false;
     let startTime = null;
     let lastPosition = null;
+    let lastUpdateTime = null;
     let totalDistance = 0;
     let intervalId = null;
     let watchId = null;
@@ -85,28 +86,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navigator.geolocation) {
             tracking = true;
             startTime = Date.now();
+            lastUpdateTime = startTime;
             totalDistance = 0;
             statusEl.textContent = 'Tracking... Start walking/running!';
             
             watchId = navigator.geolocation.watchPosition((position) => {
                 const { latitude, longitude } = position.coords;
                 const currentPosition = { lat: latitude, lng: longitude };
+                const currentTime = Date.now();
                 
                 if (lastPosition) {
                     const distance = calculateDistance(lastPosition.lat, lastPosition.lng, currentPosition.lat, currentPosition.lng);
-                    const timeDiffMin = (Date.now() - startTime) / (1000 * 60);
+                    const timeDiffMs = currentTime - lastUpdateTime;
+                    const timeDiffMin = timeDiffMs / (1000 * 60);
                     const currentSpeed = timeDiffMin > 0 ? (distance / timeDiffMin) : 0;
                     
                     currentSpeedEl.textContent = currentSpeed.toFixed(4);
                     
-                    // Only track distance and update stats if moving above threshold
+                    // Only track distance if moving above threshold
                     if (currentSpeed > minSpeedThreshold) {
                         totalDistance += distance;
                         totalDistanceEl.textContent = totalDistance.toFixed(2);
                         statusEl.textContent = 'Tracking... Moving!';
-                        updateStats(); // Update progress and avg speed only when moving
+                        lastUpdateTime = currentTime; // Update for next speed calc
+                        updateStats();
                     } else {
-                        statusEl.textContent = 'Paused (no movement detected). Start walking/running!';
+                        statusEl.textContent = 'Paused (no movement). Start walking/running!';
                     }
                 }
                 lastPosition = currentPosition;
