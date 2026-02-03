@@ -6,60 +6,57 @@
     <title>Live Running Tracker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
+    <div class="background-particles"></div> <!-- Subtle particle effect -->
     <div class="container">
-        <header>
-            <h1><i class="fas fa-running"></i> Live Running Tracker</h1>
-            <div id="user-mode">
-                <span id="user-status">Using as Guest</span>
-                <div id="g_id_onload" data-client_id="YOUR_CLIENT_ID" data-callback="handleCredentialResponse"></div>
-                <div class="g_id_signin" data-type="standard" data-text="signin_with"></div>
-                <button id="logout-btn" style="display:none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
-            <button id="dark-mode-toggle"><i class="fas fa-moon"></i></button>
+        <header class="slide-in">
+            <h1><i class="fas fa-running bounce"></i> Live Running Tracker</h1>
+            <button id="dark-mode-toggle" class="pulse"><i class="fas fa-moon"></i></button>
         </header>
         
         <div id="main-content">
-            <div class="controls">
-                <button id="start-btn"><i class="fas fa-play"></i> Start</button>
-                <button id="stop-btn" disabled><i class="fas fa-stop"></i> Stop</button>
+            <div class="controls slide-in">
+                <button id="start-btn" class="glow"><i class="fas fa-play"></i> Start</button>
+                <button id="stop-btn" disabled class="glow"><i class="fas fa-stop"></i> Stop</button>
             </div>
             
-            <div class="stats">
-                <div class="stat-card">
-                    <i class="fas fa-clock"></i>
+            <div class="stats slide-in">
+                <div class="stat-card flip-in">
+                    <i class="fas fa-clock spin"></i>
                     <p>Time: <span id="time-elapsed">0.0</span> min (<span id="time-hours">0 hr 0.0 min</span>)</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-route"></i>
+                <div class="stat-card flip-in">
+                    <i class="fas fa-route bounce"></i>
                     <p>Distance: <span id="total-distance">0.00</span> km</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-tachometer-alt"></i>
+                <div class="stat-card flip-in">
+                    <i class="fas fa-tachometer-alt pulse"></i>
                     <p>Current Speed: <span id="current-speed">0.00</span> km/min</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-chart-line"></i>
+                <div class="stat-card flip-in">
+                    <i class="fas fa-chart-line glow"></i>
                     <p>Avg Speed: <span id="average-speed">0.00</span> km/min</p>
                 </div>
             </div>
             
-            <div id="status">Ready to track!</div>
+            <div id="status" class="fade-in">Ready to track!</div>
             
-            <div class="history">
-                <h2><i class="fas fa-history"></i> Run History</h2>
+            <div class="progress-bar slide-in">
+                <div id="progress-fill"></div>
+            </div>
+            
+            <div class="history slide-in">
+                <h2><i class="fas fa-history spin"></i> Run History</h2>
                 <ul id="history-list"></ul>
             </div>
         </div>
         
-        <footer class="help-contact">
-            <h2><i class="fas fa-question-circle"></i> Help & Contact</h2>
-            <p><i class="fas fa-phone"></i> Mobile: +91-9389082415</p>
-            <p><i class="fas fa-envelope"></i> Email: <a href="mailto:dixittomar75@gmail.com">dixittomar75@gmail.com</a></p>
-            <p><i class="fas fa-users"></i> This site is made by Amar Mishra, Ayush Rawat, Ayush Sharma, Dixit Tomar</p>
+        <footer class="help-contact slide-in">
+            <h2><i class="fas fa-question-circle bounce"></i> Help & Contact</h2>
+            <p><i class="fas fa-phone pulse"></i> Mobile: +91-9389082415</p>
+            <p><i class="fas fa-envelope glow"></i> Email: <a href="mailto:dixittomar75@gmail.com">dixittomar75@gmail.com</a></p>
+            <p><i class="fas fa-users flip"></i> This site is made by Amar Mishra, Ayush Rawat, Ayush Sharma, Dixit Tomar</p>
         </footer>
     </div>
     <script src="script.js"></script>
